@@ -2,6 +2,7 @@ import moment from 'moment';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useFetchGithub } from '../../contexts/';
+import { Link } from 'react-router-dom';
 
 export function IssueList() {
   const { issueList, fetchIssueList } = useFetchGithub();
@@ -18,7 +19,9 @@ export function IssueList() {
             <IssueListItem key={item.id}>
               <IssueTitleWrapper>
                 <IssueNumber>#{item.number}</IssueNumber>
-                <IssueTitle>{item.title}</IssueTitle>
+                <Link to="/">
+                  <IssueTitle>{item.title}</IssueTitle>
+                </Link>
               </IssueTitleWrapper>
               <IssueUser>작성자: {item.user.login}</IssueUser>
               <IssueDate>
@@ -50,7 +53,7 @@ const IssueTitleWrapper = styled.div`
 `;
 
 const IssueNumber = styled.span`
-  padding-right: 20px;
+  padding-right: 10px;
 `;
 
 const IssueTitle = styled.span`
