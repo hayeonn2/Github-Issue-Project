@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line no-undef
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
 export function IssueList() {
+  const [list, setList] = useState([]);
+
   const getIssueList = async () => {
     try {
       const response = await axios.get(
@@ -17,7 +19,7 @@ export function IssueList() {
         }
       );
       console.log(response.data);
-      return response.data;
+      setList(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -27,5 +29,16 @@ export function IssueList() {
     getIssueList();
   }, []);
 
-  return <main></main>;
+  return (
+    <main>
+      <ul>
+        {list.map((item) => (
+          <li key={item.id}>
+            <span>{item.number}</span>
+            <span>{item.title}</span>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
 }
