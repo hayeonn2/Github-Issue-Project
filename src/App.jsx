@@ -1,14 +1,15 @@
 import { Header } from './components';
 import { IssueList } from './components';
+import { IssueProvider } from './contexts/';
 
 function App() {
   return (
-    <div className="App">
+    <IssueProvider>
       <Header />
       <main>
         <IssueList />
       </main>
-    </div>
+    </IssueProvider>
   );
 }
 
