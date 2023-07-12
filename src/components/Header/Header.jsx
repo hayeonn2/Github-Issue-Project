@@ -1,7 +1,13 @@
+import styled from 'styled-components';
 export function Header() {
   return (
-    <header>
-      <h1>헤더다임마</h1>
-    </header>
+    <HeaderTitle>
+      <h1>Angular/Angular-cli</h1>
+    </HeaderTitle>
   );
 }
+
+const HeaderTitle = styled.header`
+  text-align: center;
+  padding: 20px 0;
+`;
