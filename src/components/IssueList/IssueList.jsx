@@ -5,13 +5,13 @@ import { IssueListItem } from '../IssueListItem/IssueListItem';
 import { Advertisement } from '../Advertisement/Advertisement';
 
 export function IssueList() {
-  const { issueList, fetchIssueList } = useFetchGithub();
+  const { issueList, fetchIssueListGithub, isLoading } = useFetchGithub();
 
   useEffect(() => {
-    fetchIssueList();
+    fetchIssueListGithub();
   }, []);
 
-  return (
+  return !isLoading ? (
     <IssueWrap>
       {issueList.map((item, idx) =>
         (idx + 1) % 5 === 0 ? (
@@ -23,6 +23,8 @@ export function IssueList() {
         )
       )}
     </IssueWrap>
+  ) : (
+    <>loading...</>
   );
 }
 

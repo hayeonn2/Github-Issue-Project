@@ -10,6 +10,7 @@ export function IssueProvider({ children }) {
     try {
       const data = await getIssueList();
       setIssueList(data);
+      return data;
     } catch (err) {
       console.error(err);
     }
