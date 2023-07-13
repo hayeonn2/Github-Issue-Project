@@ -6,10 +6,10 @@ export const useFetchGithub = () => {
   const [error, setError] = useState(null);
   const { issueList, fetchIssueList } = useContext(IssueContext);
 
-  const fetchIssueListGithub = async () => {
+  const fetchIssueListGithub = async (perPage, page) => {
     setIsLoading(true);
     try {
-      const response = await fetchIssueList();
+      const response = await fetchIssueList(perPage, page);
       return response;
     } catch (error) {
       setError(error);

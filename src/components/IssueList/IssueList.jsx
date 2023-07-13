@@ -11,10 +11,16 @@ export function IssueList() {
     fetchIssueListGithub();
   }, []);
 
+  // const PER_PAGE = 10;
+  // const [pageInfo, setPageInfo] = useState({
+  //   page: 1,
+  //   totalPage: 100,
+  // });
+
   return !isLoading ? (
     <IssueWrap>
       {issueList.map((item, idx) =>
-        (idx + 1) % 5 === 0 ? (
+        (idx + 1) % 4 === 0 ? (
           <IssueListItem key={item.id} item={item}>
             <Advertisement />
           </IssueListItem>

@@ -6,9 +6,9 @@ export const IssueContext = createContext();
 export function IssueProvider({ children }) {
   const [issueList, setIssueList] = useState([]);
 
-  const fetchIssueList = async () => {
+  const fetchIssueList = async (perPage, page) => {
     try {
-      const data = await getIssueList();
+      const data = await getIssueList(perPage, page);
       setIssueList(data);
       return data;
     } catch (err) {
