@@ -1,17 +1,14 @@
-import { Header } from './components';
-import { IssueList } from './components';
-import { IssueProvider } from './contexts/';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MainPage } from './pages/MainPage';
+import { IssueDetail } from './components';
 
 function App() {
   return (
     <BrowserRouter>
-      <IssueProvider>
-        <Header />
-        <main>
-          <IssueList />
-        </main>
-      </IssueProvider>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/issues/:number" element={<IssueDetail />} />
+      </Routes>
     </BrowserRouter>
   );
 }

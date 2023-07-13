@@ -8,7 +8,7 @@ export function IssueListItem({ item, children }) {
       <IssueListItemBox key={item.id}>
         <IssueTitleWrapper>
           <IssueNumber>#{item.number}</IssueNumber>
-          <IssueTitle>{item.title}</IssueTitle>
+          <IssueTitle to={`/issues/${item.number}`}>{item.title}</IssueTitle>
         </IssueTitleWrapper>
         <IssueUser>작성자: {item.user.login}</IssueUser>
         <IssueDate>

@@ -4,7 +4,8 @@ import { IssueContext } from './IssueContext';
 export const useFetchGithub = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { issueList, fetchIssueList } = useContext(IssueContext);
+  const { issueList, fetchIssueList, issueItem, fetchIssue } =
+    useContext(IssueContext);
 
   const fetchIssueListGithub = async (perPage, page) => {
     setIsLoading(true);
@@ -18,5 +19,12 @@ export const useFetchGithub = () => {
     }
   };
 
-  return { issueList, fetchIssueListGithub, isLoading, error };
+  return {
+    issueList,
+    fetchIssueListGithub,
+    isLoading,
+    error,
+    issueItem,
+    fetchIssue,
+  };
 };

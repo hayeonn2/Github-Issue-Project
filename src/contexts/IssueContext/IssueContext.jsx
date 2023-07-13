@@ -1,10 +1,11 @@
 import { createContext, useState } from 'react';
-import { getIssueList } from '../../utils/apiUtils';
+import { getIssueDetailItem, getIssueList } from '../../utils/apiUtils';
 
 export const IssueContext = createContext();
 
 export function IssueProvider({ children }) {
   const [issueList, setIssueList] = useState([]);
+  const [issueItem, setIssueItem] = useState(null);
 
   const fetchIssueList = async (perPage, page) => {
     try {
@@ -16,8 +17,20 @@ export function IssueProvider({ children }) {
     }
   };
 
+  const fetchIssue = async (number) => {
+    try {
+      const data = await getIssueDetailItem(number);
+      setIssueItem(data);
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <IssueContext.Provider value={{ issueList, fetchIssueList }}>
+    <IssueContext.Provider
+      value={{ issueList, fetchIssueList, issueItem, fetchIssue }}
+    >
       {children}
     </IssueContext.Provider>
   );

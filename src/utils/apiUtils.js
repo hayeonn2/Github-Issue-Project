@@ -20,3 +20,20 @@ export const getIssueList = async (perPage, page) => {
     console.log(err);
   }
 };
+
+export const getIssueDetailItem = async (number) => {
+  try {
+    const response = await axios.get(
+      `https://api.github.com/repos/facebook/react/issues/${number}`,
+      {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
