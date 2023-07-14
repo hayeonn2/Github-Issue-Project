@@ -1,9 +1,8 @@
-import { Header, IssueList } from '../components';
+import { IssueList } from '../components';
 
 export function MainPage() {
   return (
     <>
-      <Header />
       <main>
         <IssueList />
       </main>
