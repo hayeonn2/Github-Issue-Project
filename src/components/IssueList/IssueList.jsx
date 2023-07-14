@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import { Loading } from '../Loading/Loading';
 import { useFetchGithub } from '../../contexts/';
 import { IssueListItem } from '../IssueListItem/IssueListItem';
 import { Advertisement } from '../Advertisement/Advertisement';
@@ -30,7 +31,7 @@ export function IssueList() {
       )}
     </IssueWrap>
   ) : (
-    <>loading...</>
+    <Loading />
   );
 }
 
