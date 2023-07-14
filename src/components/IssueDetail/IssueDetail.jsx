@@ -3,16 +3,21 @@ import remarkGfm from 'remark-gfm';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import { IssueContext } from '../../contexts';
+import { useEffect } from 'react';
+import { useFetchGithub } from '../../contexts';
+import { Loading } from '../Loading/Loading';
 
 export function IssueDetail() {
   const { number } = useParams();
-  const { issueItem, fetchIssue } = useContext(IssueContext);
+  const { issueItem, fetchIssue } = useFetchGithub();
 
   useEffect(() => {
     fetchIssue(parseInt(number));
   }, []);
+
+  if (!issueItem) {
+    return <Loading />;
+  }
 
   return (
     <DetailWrapper>
@@ -24,9 +29,7 @@ export function IssueDetail() {
             <DetailTitle>{issueItem?.title}</DetailTitle>
           </TitleBox>
           <DetailUser>작성자: {issueItem?.user.login}</DetailUser>
-          <DetailDate>
-            작성일: {moment(issueItem?.created_at).format('YYYY-MM-DD')}
-          </DetailDate>
+          <p>작성일: {moment(issueItem?.created_at).format('YYYY-MM-DD')}</p>
           <DetailCommnets>코멘트 수: {issueItem?.comments}</DetailCommnets>
         </Container>
       </Div>
@@ -41,7 +44,6 @@ const DetailWrapper = styled.div`
 `;
 
 const Div = styled.div`
-  /* background-color: purple; */
   display: flex;
   flex-flow: row;
   position: relative;
@@ -50,7 +52,6 @@ const Div = styled.div`
 `;
 
 const Container = styled.div`
-  /* outline: 2px solid red; */
   display: flex;
   flex-flow: row wrap;
   width: 100%;
@@ -59,7 +60,6 @@ const Container = styled.div`
 `;
 
 const TitleBox = styled.div`
-  /* background-color: pink; */
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -73,29 +73,21 @@ const Avatar = styled.img`
 `;
 
 const DetailNumber = styled.p`
-  /* background-color: skyblue; */
   width: 120px;
   font-size: 16px;
   margin-top: 4px;
 `;
 
 const DetailTitle = styled.h3`
-  /* background-color: lime; */
   font-size: 24px;
   margin-left: 10px;
 `;
 
 const DetailUser = styled.p`
-  /* background-color: gold; */
   margin-right: 15px;
 `;
 
-const DetailDate = styled.p`
-  /* background-color: pink; */
-`;
-
 const DetailCommnets = styled.p`
-  /* background-color: gray; */
   margin-left: 15px;
 `;
 
