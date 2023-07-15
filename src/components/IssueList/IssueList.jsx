@@ -1,43 +1,42 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Loading } from '../Loading/Loading';
 import { ErrorPage } from '../../pages/ErrorPage';
 import { useIssueList } from '../../hooks/useIssue';
 import { IssueListItem } from '../IssueListItem/IssueListItem';
 import { Advertisement } from '../Advertisement/Advertisement';
+import useInfiniteScroll from '../../hooks/useObserver';
+import ScrollObserver from '../ScrollObserver/ScrollObserver';
 
 export function IssueList() {
-  const { issueList, isLoading, fetchIssueList, error } = useIssueList();
+  const { issueList, fetchIssueList, error, isLoading } = useIssueList();
+  const target = useRef(null);
+  const Intersecting = useInfiniteScroll(target);
 
   useEffect(() => {
-    fetchIssueList();
-  }, []);
+    if (Intersecting) {
+      fetchIssueList();
+    }
+  }, [Intersecting]);
 
   if (error) {
     return <ErrorPage />;
   }
 
-  // const PER_PAGE = 10;
-  // const [pageInfo, setPageInfo] = useState({
-  //   page: 1,
-  //   totalPage: 100,
-  // });
-
-  return !isLoading ? (
+  return (
     <IssueWrap>
-      {issueList &&
-        issueList.map((item, idx) =>
-          (idx + 1) % 4 === 0 ? (
-            <IssueListItem key={item.id} item={item}>
-              <Advertisement />
-            </IssueListItem>
-          ) : (
-            <IssueListItem key={item.id} item={item} />
-          )
-        )}
+      {issueList.map((item, idx) =>
+        (idx + 1) % 4 === 0 ? (
+          <IssueListItem key={item.id} item={item}>
+            <Advertisement />
+          </IssueListItem>
+        ) : (
+          <IssueListItem key={item.id} item={item} />
+        )
+      )}
+      <ScrollObserver ref={target} />
+      {isLoading && <Loading />}
     </IssueWrap>
-  ) : (
-    <Loading />
   );
 }
 
