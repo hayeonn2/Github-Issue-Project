@@ -1,12 +1,12 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Loading } from '../Loading/Loading';
-import { ListContext } from '../../contexts/';
 import { IssueListItem } from '../IssueListItem/IssueListItem';
 import { Advertisement } from '../Advertisement/Advertisement';
+import { useIssueList } from '../../hooks/useIssue';
 
 export function IssueList() {
-  const { issueList, isLoading, fetchIssueList } = useContext(ListContext);
+  const { issueList, isLoading, fetchIssueList } = useIssueList();
 
   useEffect(() => {
     fetchIssueList();
