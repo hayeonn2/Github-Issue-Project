@@ -12,6 +12,8 @@
 2. 이슈 상세 화면
   - 이슈의 상세 내용 표시
   - '이슈번호, 이슈제목, 작성자, 작성일, 코멘트 수, 작성자 프로필 이미지, 본문' 표시
+3. 데이터 요청 중 로딩표시
+4. 에러 화면 구현
 
 <br/>
 
@@ -36,7 +38,7 @@ $ npm  start
 
 # 💻 개발환경
 - 언어 : javascript
-- 라이브러리 및 프레임워크: react, axios, styled-components, react-router-dom, react-markdown
+- 라이브러리 및 프레임워크: react, context api, axios, styled-components, react-router-dom, react-markdown
 - 배포 : netlify
 
 <br/>
