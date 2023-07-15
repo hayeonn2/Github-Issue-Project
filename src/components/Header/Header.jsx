@@ -2,7 +2,7 @@ import styled from 'styled-components';
 export function Header() {
   return (
     <HeaderTitle>
-      <h1>Angular/Angular-cli</h1>
+      <h1>facebook/react</h1>
     </HeaderTitle>
   );
 }

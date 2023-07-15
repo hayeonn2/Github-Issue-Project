@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Loading } from '../Loading/Loading';
+import { ErrorPage } from '../../pages/ErrorPage';
 import { useIssueList } from '../../hooks/useIssue';
 import { IssueListItem } from '../IssueListItem/IssueListItem';
 import { Advertisement } from '../Advertisement/Advertisement';
 
 export function IssueList() {
-  const { issueList, isLoading, fetchIssueList } = useIssueList();
+  const { issueList, isLoading, fetchIssueList, error } = useIssueList();
 
   useEffect(() => {
     fetchIssueList();
   }, []);
+
+  if (error) {
+    return <ErrorPage />;
+  }
 
   // const PER_PAGE = 10;
   // const [pageInfo, setPageInfo] = useState({

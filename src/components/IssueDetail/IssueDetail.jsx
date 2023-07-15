@@ -5,36 +5,48 @@ import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import { Loading } from '../Loading/Loading';
 import { useParams } from 'react-router-dom';
+import { ErrorPage } from '../../pages/ErrorPage';
 import { useDetailIssue } from '../../hooks/useIssue';
 
 export function IssueDetail() {
   const { number } = useParams();
-  const { issueItem, fetchIssue } = useDetailIssue();
+  const { issueItem, fetchIssue, error, isLoading } = useDetailIssue();
 
   useEffect(() => {
     fetchIssue(parseInt(number));
   }, []);
 
-  if (!issueItem) {
-    return <Loading />;
+  if (error) {
+    return <ErrorPage />;
   }
 
   return (
-    <DetailWrapper>
-      <Div>
-        <Avatar src={issueItem?.user.avatar_url} alt="작성자 프로필 이미지" />
-        <Container>
-          <TitleBox>
-            <DetailNumber>Issue #{issueItem?.number}</DetailNumber>
-            <DetailTitle>{issueItem?.title}</DetailTitle>
-          </TitleBox>
-          <DetailUser>작성자: {issueItem?.user.login}</DetailUser>
-          <p>작성일: {moment(issueItem?.created_at).format('YYYY-MM-DD')}</p>
-          <DetailCommnets>코멘트 수: {issueItem?.comments}</DetailCommnets>
-        </Container>
-      </Div>
-      <DetailBody remarkPlugins={[remarkGfm]}>{issueItem?.body}</DetailBody>
-    </DetailWrapper>
+    <>
+      {!isLoading ? (
+        <DetailWrapper>
+          <Div>
+            <Avatar
+              src={issueItem?.user.avatar_url}
+              alt="작성자 프로필 이미지"
+            />
+            <Container>
+              <TitleBox>
+                <DetailNumber>Issue #{issueItem?.number}</DetailNumber>
+                <DetailTitle>{issueItem?.title}</DetailTitle>
+              </TitleBox>
+              <DetailUser>작성자: {issueItem?.user.login}</DetailUser>
+              <p>
+                작성일: {moment(issueItem?.created_at).format('YYYY-MM-DD')}
+              </p>
+              <DetailComments>코멘트 수: {issueItem?.comments}</DetailComments>
+            </Container>
+          </Div>
+          <DetailBody remarkPlugins={[remarkGfm]}>{issueItem?.body}</DetailBody>
+        </DetailWrapper>
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 }
 
@@ -87,7 +99,7 @@ const DetailUser = styled.p`
   margin-right: 15px;
 `;
 
-const DetailCommnets = styled.p`
+const DetailComments = styled.p`
   margin-left: 15px;
 `;
 
