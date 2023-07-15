@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Loading } from '../Loading/Loading';
+import { useIssueList } from '../../hooks/useIssue';
 import { IssueListItem } from '../IssueListItem/IssueListItem';
 import { Advertisement } from '../Advertisement/Advertisement';
-import { useIssueList } from '../../hooks/useIssue';
 
 export function IssueList() {
   const { issueList, isLoading, fetchIssueList } = useIssueList();
@@ -20,15 +20,16 @@ export function IssueList() {
 
   return !isLoading ? (
     <IssueWrap>
-      {issueList.map((item, idx) =>
-        (idx + 1) % 4 === 0 ? (
-          <IssueListItem key={item.id} item={item}>
-            <Advertisement />
-          </IssueListItem>
-        ) : (
-          <IssueListItem key={item.id} item={item} />
-        )
-      )}
+      {issueList &&
+        issueList.map((item, idx) =>
+          (idx + 1) % 4 === 0 ? (
+            <IssueListItem key={item.id} item={item}>
+              <Advertisement />
+            </IssueListItem>
+          ) : (
+            <IssueListItem key={item.id} item={item} />
+          )
+        )}
     </IssueWrap>
   ) : (
     <Loading />

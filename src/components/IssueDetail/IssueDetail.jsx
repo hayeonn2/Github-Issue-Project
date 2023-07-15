@@ -1,10 +1,10 @@
 import moment from 'moment';
+import { useEffect } from 'react';
 import remarkGfm from 'remark-gfm';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { Loading } from '../Loading/Loading';
+import { useParams } from 'react-router-dom';
 import { useDetailIssue } from '../../hooks/useIssue';
 
 export function IssueDetail() {

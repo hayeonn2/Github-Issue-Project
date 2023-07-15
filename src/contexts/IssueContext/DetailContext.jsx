@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { getIssueDetailItem } from '../../utils/apiUtils';
+import { getIssueDetailItem } from '../../api/issue';
 
 export const DetailContext = createContext();
 
