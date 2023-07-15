@@ -10,11 +10,12 @@ export function Loading() {
 }
 
 const Container = styled.div`
-  width: 1000px;
+  width: 600px;
   margin: 100px auto;
 `;
 const LoadingImage = styled.img`
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  width: 100px;
 `;

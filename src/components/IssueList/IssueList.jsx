@@ -41,8 +41,8 @@ export function IssueList() {
 }
 
 const IssueWrap = styled.ul`
-  list-style: none;
-  width: 1000px;
+  width: 600px;
   margin: 0 auto;
-  padding: 0;
+  border: 1px solid #31363c;
+  border-radius: 8px;
 `;

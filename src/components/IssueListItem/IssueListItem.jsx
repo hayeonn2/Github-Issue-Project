@@ -6,15 +6,16 @@ export function IssueListItem({ item, children }) {
   return (
     <>
       <IssueListItemBox key={item.id}>
-        <IssueTitleWrapper>
+        <IssueTitle to={`/issues/${item.number}`}>{item.title}</IssueTitle>
+        <ItemWrapper>
           <IssueNumber>#{item.number}</IssueNumber>
-          <IssueTitle to={`/issues/${item.number}`}>{item.title}</IssueTitle>
-        </IssueTitleWrapper>
-        <IssueUser>작성자: {item.user.login}</IssueUser>
-        <IssueDate>
-          작성일: {moment(item.created_at).format('YYYY-MM-DD')}
-        </IssueDate>
-        <IssueComments>코멘트: {item.comments}</IssueComments>
+          <IssueUser>by {item.user.login}</IssueUser>
+          <IssueDate>{moment(item.created_at).format('YYYY-MM-DD')}</IssueDate>
+          <IssueComments>
+            <IssueCommentsImg src="https://github.com/hayeonn2/pre-onboarding-11th-3-17/assets/111109573/92047c5d-6b24-4821-bf82-09e7d5687ca2" />
+            {item.comments}
+          </IssueComments>
+        </ItemWrapper>
       </IssueListItemBox>
       {children}
     </>
@@ -22,41 +23,53 @@ export function IssueListItem({ item, children }) {
 }
 
 const IssueListItemBox = styled.li`
-  padding: 10px 0 20px 10px;
-  border-bottom: 1px solid #ccc;
+  padding: 12px 16px;
+  border-bottom: 1px solid #31363c;
   position: relative;
   &:hover {
-    background: #efefef;
+    background: #171b21;
     transition: all 0.6s;
   }
 `;
 
-const IssueTitleWrapper = styled.div`
-  padding: 15px 0;
+const ItemWrapper = styled.div`
+  padding-top: 10px;
+  color: #7d8590;
+  font-size: 14px;
 `;
 
-const IssueNumber = styled.span`
-  padding-right: 10px;
-`;
+const IssueNumber = styled.span``;
 
 const IssueTitle = styled(Link)`
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #e7edf2;
   text-decoration: none;
+  display: block;
+  width: 85%;
+  line-height: 1.4;
 `;
 
 const IssueUser = styled.span`
-  padding-right: 20px;
-  color: #333;
+  padding: 0 10px;
 `;
 
-const IssueDate = styled.span`
-  color: #666;
-`;
+const IssueDate = styled.span``;
 
 const IssueComments = styled.span`
   position: absolute;
-  right: 10px;
-  color: #666;
+  top: 15px;
+  right: 16px;
+  color: #7d8590;
+  /* background-color: blue; */
+  padding-left: 20px;
+`;
+
+const IssueCommentsImg = styled.img`
+  width: 16px;
+  /* outline: 2px solid red; */
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  left: -8px;
 `;

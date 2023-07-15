@@ -24,24 +24,45 @@ export function IssueDetail() {
     <>
       {!isLoading ? (
         <DetailWrapper>
+          <Container>
+            <TitleBox>
+              <DetailTitle>{issueItem?.title}</DetailTitle>
+              <DetailNumber>Issue #{issueItem?.number}</DetailNumber>
+            </TitleBox>
+            <ItemBox>
+              <DetailUser>{issueItem?.user.login}</DetailUser>
+              <DetailDate>
+                {moment(issueItem?.created_at).format('YYYY-MM-DD')}
+              </DetailDate>
+              <DetailComments>{issueItem?.comments} comments</DetailComments>
+            </ItemBox>
+          </Container>
+
           <Div>
             <Avatar
               src={issueItem?.user.avatar_url}
               alt="작성자 프로필 이미지"
             />
-            <Container>
-              <TitleBox>
-                <DetailNumber>Issue #{issueItem?.number}</DetailNumber>
-                <DetailTitle>{issueItem?.title}</DetailTitle>
-              </TitleBox>
-              <DetailUser>작성자: {issueItem?.user.login}</DetailUser>
-              <p>
-                작성일: {moment(issueItem?.created_at).format('YYYY-MM-DD')}
-              </p>
-              <DetailComments>코멘트 수: {issueItem?.comments}</DetailComments>
-            </Container>
+            <Box>
+              <DetailBody
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  img: (image) => (
+                    <img
+                      src={image.src || ''}
+                      alt={image.alt || ''}
+                      style={{
+                        maxWidth: '100%',
+                        height: 'auto',
+                      }}
+                    />
+                  ),
+                }}
+              >
+                {issueItem?.body}
+              </DetailBody>
+            </Box>
           </Div>
-          <DetailBody remarkPlugins={[remarkGfm]}>{issueItem?.body}</DetailBody>
         </DetailWrapper>
       ) : (
         <Loading />
@@ -51,58 +72,103 @@ export function IssueDetail() {
 }
 
 const DetailWrapper = styled.div`
-  width: 1000px;
+  width: 600px;
   margin: 50px auto;
+  /* outline: 2px solid blue; */
+`;
+
+const Box = styled.div`
+  width: 90%;
+  position: relative;
+  /* outline: 2px solid gold; */
 `;
 
 const Div = styled.div`
+  padding: 20px 16px;
   display: flex;
-  flex-flow: row;
-  position: relative;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
+  flex-flow: row nowrap;
+  /* outline: 2px solid green; */
+  /* background-color: green; */
+  > ::before {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #212324;
+  }
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-  font-weight: 600;
-  margin-left: 10px;
+  border-bottom: 1px solid #31363c;
+  padding: 12px 16px;
+  font-size: 22px;
 `;
 
-const TitleBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  margin-bottom: 10px;
-`;
+const TitleBox = styled.div``;
 
 const Avatar = styled.img`
   display: block;
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
 `;
 
-const DetailNumber = styled.p`
-  width: 120px;
-  font-size: 16px;
-  margin-top: 4px;
-`;
-
-const DetailTitle = styled.h3`
-  font-size: 24px;
+const DetailNumber = styled.span`
+  color: #7d8590;
+  font-weight: 300;
   margin-left: 10px;
 `;
 
-const DetailUser = styled.p`
-  margin-right: 15px;
+const DetailTitle = styled.span`
+  font-weight: 600;
 `;
 
-const DetailComments = styled.p`
-  margin-left: 15px;
+const ItemBox = styled.div`
+  font-size: 14px;
+  padding: 10px 0;
+  color: #7d8590;
 `;
+
+const DetailUser = styled.span``;
+
+const DetailDate = styled.span`
+  margin: 10px;
+`;
+
+const DetailComments = styled.span``;
 
 const DetailBody = styled(ReactMarkdown)`
-  padding: 30px 0;
+  /* outline: 1px solid red; */
+  margin-left: 20px;
+  background-color: #212324;
+  border-radius: 3px;
+  padding: 30px;
+
+  > p,
+  h1 {
+    width: 100%;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+  }
+
+  > pre {
+    background: #3d3d3d;
+    width: 100%;
+    padding: 20px 0;
+    margin: 30px 0;
+    overflow-x: auto;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  > pre code {
+    display: block;
+    padding: 10px 16px;
+  }
 `;
