@@ -3,13 +3,13 @@ import remarkGfm from 'remark-gfm';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useFetchGithub } from '../../contexts';
+import { useContext, useEffect } from 'react';
+import { DetailContext } from '../../contexts';
 import { Loading } from '../Loading/Loading';
 
 export function IssueDetail() {
   const { number } = useParams();
-  const { issueItem, fetchIssue } = useFetchGithub();
+  const { issueItem, fetchIssue } = useContext(DetailContext);
 
   useEffect(() => {
     fetchIssue(parseInt(number));

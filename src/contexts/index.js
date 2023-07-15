@@ -1,2 +1,2 @@
-export * from './IssueContext/IssueContext';
-export * from './IssueContext/useFetchGithub';
+export * from './IssueContext/DetailContext';
+export * from './IssueContext/ListContext';

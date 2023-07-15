@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { Loading } from '../Loading/Loading';
-import { useFetchGithub } from '../../contexts/';
+import { ListContext } from '../../contexts/';
 import { IssueListItem } from '../IssueListItem/IssueListItem';
 import { Advertisement } from '../Advertisement/Advertisement';
 
 export function IssueList() {
-  const { issueList, fetchIssueListGithub, isLoading } = useFetchGithub();
+  const { issueList, isLoading, fetchIssueList } = useContext(ListContext);
 
   useEffect(() => {
-    fetchIssueListGithub();
+    fetchIssueList();
   }, []);
 
   // const PER_PAGE = 10;
